@@ -1,3 +1,5 @@
+import { IconSearch } from "@tabler/icons-react";
+
 import useWeatherContext from "../contexts/useWeatherContext";
 
 const FetchWeather = () => {
@@ -12,34 +14,33 @@ const FetchWeather = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex gap-2">
-      <label className="input input-bordered flex items-center gap-2">
-        <input
-          type="text"
-          name="city"
-          className="grow"
-          placeholder="Enter city name"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          className="w-4 h-4 opacity-70"
-        >
-          <path
-            fillRule="evenodd"
-            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-            clipRule="evenodd"
+    <form
+      onSubmit={handleSubmit}
+      className="mb-4 flex flex-row items-center gap-2 max-sm:gap-0"
+    >
+      <div className="shrink-0">
+        <label className="input input-md max-sm:input-sm input-bordered flex items-center gap-2">
+          <input
+            type="text"
+            name="city"
+            className="grow"
+            placeholder="Enter city name"
+            autoComplete="off"
           />
-        </svg>
-      </label>
-      <button type="submit" className="btn btn-info">
+          <IconSearch stroke={2} height={"20px"} className="max-sm:hidden" />
+        </label>
+      </div>
+      <button type="submit" className="btn btn-info btn-md max-sm:btn-sm">
         {loading ? (
           <>
-            <span className="loading loading-spinner"></span> Loading
+            <span className="loading loading-spinner"></span>{" "}
+            <span className="max-sm:hidden">Loading</span>
           </>
         ) : (
-          <span>Get Weather</span>
+          <>
+            <IconSearch stroke={2} height={"20px"} className="sm:hidden" />
+            <span className="max-sm:hidden">Get Weather</span>
+          </>
         )}
       </button>
     </form>
