@@ -7,30 +7,31 @@ const FetchWeather = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const target = event.currentTarget;
     const formData = new FormData(target);
     const city = formData.get("city");
+
     fetchWeatherData(city);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-4 flex flex-row items-center gap-2 max-sm:gap-0"
+      className="mb-4 flex items-center gap-2 max-sm:w-full"
     >
-      <div className="shrink-0">
-        <label className="input input-md max-sm:input-sm input-bordered flex items-center gap-2">
-          <input
-            type="text"
-            name="city"
-            className="grow"
-            placeholder="Enter city name"
-            autoComplete="off"
-          />
-          <IconSearch stroke={2} height={"20px"} className="max-sm:hidden" />
-        </label>
-      </div>
-      <button type="submit" className="btn btn-info btn-md max-sm:btn-sm">
+      <label className="input input-md input-bordered flex items-center gap-2 max-sm:flex-1">
+        <input
+          type="text"
+          name="city"
+          className="grow"
+          placeholder="Enter city name"
+          autoComplete="off"
+        />
+        <IconSearch stroke={2} height={"20px"} className="max-sm:hidden" />
+      </label>
+
+      <button type="submit" className="btn btn-info btn-md">
         {loading ? (
           <>
             <span className="loading loading-spinner"></span>{" "}

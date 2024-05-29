@@ -1,7 +1,7 @@
-// src/contexts/WeatherContext.js
 import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const WeatherContext = createContext();
 
@@ -9,7 +9,7 @@ export const WeatherProvider = ({ children }) => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [airPollution, setAirPollution] = useState(null);
-  const [unit, setUnit] = useState("metric"); // metric(C) or imperial(F)
+  const [unit, setUnit] = useState("metric");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,6 +17,10 @@ export const WeatherProvider = ({ children }) => {
   const API_KEY = String(import.meta.env.VITE_OPENWEATHERMAP_API_KEY);
 
   const fetchWeatherData = async (city) => {
+    if (!city.trim()) {
+      return toast.error("Please enter a city name!");
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -38,6 +42,7 @@ export const WeatherProvider = ({ children }) => {
       setAirPollution(airPollutionResponse.data);
     } catch (err) {
       setError("City not found");
+      toast.error("City not found!");
     } finally {
       setLoading(false);
     }
