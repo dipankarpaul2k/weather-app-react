@@ -63,6 +63,7 @@ export const WeatherProvider = ({ children }) => {
     unit,
     loading,
     error,
+    setUnit,
     toggleUnit,
     fetchWeatherData,
   };

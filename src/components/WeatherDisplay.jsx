@@ -3,17 +3,20 @@ import {
   IconSunset,
   IconTemperature,
   IconWind,
-  IconArrowRightTail,
+  IconMist,
+  IconDroplets,
+  IconCompass,
 } from "@tabler/icons-react";
 
 import useWeatherContext from "../contexts/useWeatherContext";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 const WeatherDisplay = () => {
   const { currentWeather, forecast, airPollution, loading, error } =
     useWeatherContext();
 
   if (loading) {
-    return <p className="text-center">Loading...</p>;
+    return <LoadingSkeleton />;
   }
 
   if (error) {
@@ -22,9 +25,11 @@ const WeatherDisplay = () => {
 
   if (!currentWeather || !forecast || !airPollution) {
     return (
-      <p className="text-center">
-        Enter a city to get the weather information.
-      </p>
+      <>
+        <p className="text-center">
+          Enter a city to get the weather information.
+        </p>
+      </>
     );
   }
 
@@ -36,7 +41,7 @@ const WeatherDisplay = () => {
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
 
   return (
-    <div className="container mx-auto h-full px-1">
+    <div className="container mx-auto h-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 sm:gap-4">
         <div className="flex flex-col gap-4">
           <div className="stats stats-vertical shadow border w-full grow">
@@ -97,7 +102,7 @@ const WeatherDisplay = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Max & Min Temperature */}
             <div className="w-full">
-              <div className="stats lg:stats-vertical shadow border w-full">
+              <div className="stats max-sm:stats-vertical lg:stats-vertical shadow border w-full">
                 <div className="stat">
                   <div className="stat-title">Minimum Temperature</div>
                   <div className="stat-value">
@@ -118,8 +123,11 @@ const WeatherDisplay = () => {
 
             {/* Humidity & Visibility */}
             <div className="w-full">
-              <div className="stats lg:stats-vertical shadow border w-full">
+              <div className="stats max-sm:stats-vertical lg:stats-vertical shadow border w-full">
                 <div className="stat">
+                  <div className="stat-figure text-secondary">
+                    <IconDroplets stroke={2} />
+                  </div>
                   <div className="stat-title">Humidity</div>
                   <div className="stat-value">
                     {currentWeather.main.humidity}%
@@ -127,6 +135,9 @@ const WeatherDisplay = () => {
                   <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
                 </div>
                 <div className="stat">
+                  <div className="stat-figure text-secondary">
+                    <IconMist stroke={2} />
+                  </div>
                   <div className="stat-title">Visibility</div>
                   <div className="stat-value">
                     {currentWeather.visibility / 1000} km
@@ -138,7 +149,7 @@ const WeatherDisplay = () => {
 
             {/* Pressure */}
             <div className="w-full">
-              <div className="stats lg:stats-vertical shadow border w-full">
+              <div className="stats max-sm:stats-vertical lg:stats-vertical shadow border w-full">
                 <div className="stat">
                   <div className="stat-title">Sea Level Pressure</div>
                   <div className="stat-value">
@@ -174,7 +185,7 @@ const WeatherDisplay = () => {
 
               <div className="stat">
                 <div className="stat-figure text-secondary">
-                  <IconArrowRightTail stroke={2} />
+                  <IconCompass stroke={2} />
                 </div>
                 <div className="stat-title">Wind Direction</div>
                 <div className="stat-value">{currentWeather.wind.deg}°</div>

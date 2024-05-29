@@ -13,38 +13,36 @@ const FetchWeather = () => {
     const city = formData.get("city");
 
     fetchWeatherData(city);
+    target.reset();
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-4 flex items-center gap-2 max-sm:w-full"
-    >
-      <label className="input input-md input-bordered flex items-center gap-2 max-sm:flex-1">
-        <input
-          type="text"
-          name="city"
-          className="grow"
-          placeholder="Enter city name"
-          autoComplete="off"
-        />
-        <IconSearch stroke={2} height={"20px"} className="max-sm:hidden" />
-      </label>
-
-      <button type="submit" className="btn btn-info btn-md">
-        {loading ? (
-          <>
-            <span className="loading loading-spinner"></span>{" "}
-            <span className="max-sm:hidden">Loading</span>
-          </>
-        ) : (
-          <>
-            <IconSearch stroke={2} height={"20px"} className="sm:hidden" />
-            <span className="max-sm:hidden">Get Weather</span>
-          </>
-        )}
-      </button>
-    </form>
+    <div className="flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="mb-4 w-full max-w-[500px]">
+        <div className="join w-full">
+          <input
+            type="text"
+            name="city"
+            className="input input-bordered join-item rounded-l-full w-full"
+            placeholder="Search"
+            autoComplete="off"
+          />
+          <button className="btn join-item rounded-r-full btn-info">
+            {loading ? (
+              <>
+                <span className="loading loading-spinner"></span>{" "}
+                <span className="max-sm:hidden">Loading</span>
+              </>
+            ) : (
+              <>
+                <IconSearch stroke={2} height={"20px"} className="sm:hidden" />
+                <span className="max-sm:hidden">Get Weather</span>
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
