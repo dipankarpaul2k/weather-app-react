@@ -7,7 +7,8 @@ export const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
   const [currentWeather, setCurrentWeather] = useState(null);
-  const [forecast, setForecast] = useState(null);
+  const [hourlyForecast, setHourlyForecast] = useState(null);
+  const [dailyForecast, setDailyForecast] = useState(null);
   const [airPollution, setAirPollution] = useState(null);
   const [unit, setUnit] = useState("metric");
   const [loading, setLoading] = useState(false);
@@ -35,8 +36,16 @@ export const WeatherProvider = ({ children }) => {
       );
       const { lat, lon } = currentWeatherResponse.data.coord;
 
-      const forecastResponse = await axios.get(
-        `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${unit}`
+      const hourlyForecastResponse = await axios.get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,visibility&timezone=Asia%2FKolkata&temperature_unit=${
+          unit === "metric" ? "celsius" : "fahrenheit"
+        }`
+      );
+
+      const dailyForecastResponse = await axios.get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max&timezone=Asia%2FKolkata&temperature_unit=${
+          unit === "metric" ? "celsius" : "fahrenheit"
+        }`
       );
 
       const airPollutionResponse = await axios.get(
@@ -44,7 +53,8 @@ export const WeatherProvider = ({ children }) => {
       );
 
       setCurrentWeather(currentWeatherResponse.data);
-      setForecast(forecastResponse.data);
+      setHourlyForecast(hourlyForecastResponse.data);
+      setDailyForecast(dailyForecastResponse.data);
       setAirPollution(airPollutionResponse.data);
     } catch (err) {
       setError("City not found");
@@ -64,14 +74,14 @@ export const WeatherProvider = ({ children }) => {
 
   const value = {
     currentWeather,
-    forecast,
+    hourlyForecast,
+    dailyForecast,
     airPollution,
     unit,
     loading,
     error,
-    setUnit,
-    toggleUnit,
     fetchWeatherData,
+    toggleUnit,
   };
 
   return (
