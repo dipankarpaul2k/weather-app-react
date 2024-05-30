@@ -26,13 +26,13 @@ const HourlyForecastData = () => {
             </button>
           </li>
           <li>
-            <button className="rounded-full" onClick={() => setHourRange(15)}>
-              15 hrs
+            <button className="rounded-full" onClick={() => setHourRange(24)}>
+              24 hrs
             </button>
           </li>
           <li>
-            <button className="rounded-full" onClick={() => setHourRange(24)}>
-              24 hrs
+            <button className="rounded-full" onClick={() => setHourRange(48)}>
+              48 hrs
             </button>
           </li>
         </ul>
