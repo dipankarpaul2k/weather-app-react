@@ -10,7 +10,7 @@ const DailyForecastData = () => {
 
   return (
     <div>
-      <h3 className="text-xl font-bold my-4">Daily Forecast</h3>
+      <h3 className="text-xl font-bold my-4">7 Day Forecast</h3>
       <div className="overflow-x-auto border rounded-xl max-lg:hidden">
         <table className="table table-zebra table-pin-rows max-sm:table-sm">
           <thead>
