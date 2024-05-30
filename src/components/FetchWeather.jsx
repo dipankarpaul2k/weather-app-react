@@ -14,6 +14,10 @@ const FetchWeather = () => {
 
     fetchWeatherData(city);
     target.reset();
+
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
   };
 
   return (
