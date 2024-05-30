@@ -1,11 +1,13 @@
 const LoadingSkeleton = () => {
   return (
-    <div className="container mx-auto h-full">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 sm:gap-4">
+        {/* grid left */}
         <div className="flex flex-col gap-4">
           <div className="skeleton h-32 grow"></div>
           <div className="skeleton h-32 grow"></div>
         </div>
+        {/* grid right */}
         <div className="col-span-2">
           <div className="flex flex-col gap-4">
             <div className=" flex flex-col lg:flex-row gap-4">
@@ -20,6 +22,9 @@ const LoadingSkeleton = () => {
           </div>
         </div>
       </div>
+      {/* daily forecast */}
+      <div className="skeleton h-4 w-32 my-4"></div>
+      <div className="skeleton h-[300px]"></div>
     </div>
   );
 };
