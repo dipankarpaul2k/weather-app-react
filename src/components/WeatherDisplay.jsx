@@ -15,8 +15,6 @@ const WeatherDisplay = () => {
   const { currentWeather, dailyForecast, airPollution, loading, error, unit } =
     useWeatherContext();
 
-  console.log(dailyForecast);
-
   if (loading) {
     return <LoadingSkeleton />;
   }
@@ -46,6 +44,7 @@ const WeatherDisplay = () => {
   return (
     <div className="container mx-auto h-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 sm:gap-4">
+        {/* grid left */}
         <div className="flex flex-col gap-4">
           <div className="stats stats-vertical shadow border w-full grow">
             <div className="stat">
@@ -75,12 +74,12 @@ const WeatherDisplay = () => {
               <div className="stat-figure text-secondary">
                 <IconTemperature stroke={2} />
               </div>
-              <div className="stat-title">Temperature Feels Like</div>
+              <div className="stat-title">Apparent Temperature</div>
               <div className="stat-value">
                 {currentWeather.main.feels_like}
                 <span>{temperatureUnit}</span>
               </div>
-              <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+              <div className="stat-desc">Perceived temperature, factoring wind, humidity.</div>
             </div>
           </div>
 
@@ -91,7 +90,7 @@ const WeatherDisplay = () => {
               </div>
               <div className="stat-title">Sunrise</div>
               <div className="stat-value">{sunriseTime}</div>
-              <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+              <div className="stat-desc">Time sun appears in morning.</div>
             </div>
 
             <div className="stat">
@@ -100,32 +99,37 @@ const WeatherDisplay = () => {
               </div>
               <div className="stat-title">Sunset</div>
               <div className="stat-value">{sunsetTime}</div>
-              <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+              <div className="stat-desc">Time sun disappears in evening.</div>
             </div>
           </div>
         </div>
 
+        {/* grid right */}
         <div className="col-span-2">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Max & Min Temperature */}
             <div className="w-full">
               <div className="stats max-sm:stats-vertical lg:stats-vertical shadow border w-full">
                 <div className="stat">
-                  <div className="stat-title">Minimum Temperature</div>
+                  <div className="stat-title">Maximum Temperature</div>
                   <div className="stat-value">
-                    {currentWeather.main.temp_min}
+                    {dailyForecast.daily.temperature_2m_max[0]}
                     <span>{temperatureUnit}</span>
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">
+                    Highest daily temperature recorded.
+                  </div>
                 </div>
 
                 <div className="stat">
-                  <div className="stat-title">Maximum Temperature</div>
+                  <div className="stat-title">Minimum Temperature</div>
                   <div className="stat-value">
-                    {currentWeather.main.temp_max}
+                    {dailyForecast.daily.temperature_2m_min[0]}
                     <span>{temperatureUnit}</span>
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">
+                    Lowest daily temperature recorded.
+                  </div>
                 </div>
               </div>
             </div>
@@ -141,7 +145,7 @@ const WeatherDisplay = () => {
                   <div className="stat-value">
                     {currentWeather.main.humidity}%
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">Amount of moisture in air.</div>
                 </div>
                 <div className="stat">
                   <div className="stat-figure text-secondary">
@@ -151,7 +155,7 @@ const WeatherDisplay = () => {
                   <div className="stat-value">
                     {currentWeather.visibility / 1000} km
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">Distance one can clearly see.</div>
                 </div>
               </div>
             </div>
@@ -164,14 +168,18 @@ const WeatherDisplay = () => {
                   <div className="stat-value">
                     {currentWeather.main.sea_level} hPa
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">
+                    Atmospheric pressure at sea level.
+                  </div>
                 </div>
                 <div className="stat">
                   <div className="stat-title">Ground Level Pressure</div>
                   <div className="stat-value">
                     {currentWeather.main.grnd_level} hPa
                   </div>
-                  <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                  <div className="stat-desc">
+                    Atmospheric pressure at ground level.
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,7 +197,7 @@ const WeatherDisplay = () => {
                 <div className="stat-value">
                   {currentWeather.wind.speed} m/s
                 </div>
-                <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                <div className="stat-desc">Speed of moving air.</div>
               </div>
 
               <div className="stat">
@@ -198,13 +206,13 @@ const WeatherDisplay = () => {
                 </div>
                 <div className="stat-title">Wind Direction</div>
                 <div className="stat-value">{currentWeather.wind.deg}°</div>
-                <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                <div className="stat-desc">Direction wind is blowing from.</div>
               </div>
 
               <div className="stat">
                 <div className="stat-title">Wind Gust</div>
                 <div className="stat-value">{currentWeather.wind.gust} m/s</div>
-                <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                <div className="stat-desc">Sudden increase in wind speed.</div>
               </div>
             </div>
           </div>
@@ -219,7 +227,8 @@ const WeatherDisplay = () => {
                   {airPollution.list[0].main.aqi}
                 </div>
                 <div className="stat-desc">
-                  Condition: {AQI_DES[airPollution.list[0].main.aqi - 1]}
+                  Condition: {AQI_DES[airPollution.list[0].main.aqi - 1]},
+                  pollution level
                 </div>
               </div>
 
@@ -228,7 +237,9 @@ const WeatherDisplay = () => {
                 <div className="stat-value">
                   {airPollution.list[0].components.pm2_5}
                 </div>
-                <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
+                <div className="stat-desc">
+                  Particulate matter, 2.5 micrometers.
+                </div>
               </div>
 
               <div className="stat">
@@ -236,7 +247,9 @@ const WeatherDisplay = () => {
                 <div className="stat-value">
                   {airPollution.list[0].components.pm10}
                 </div>
-                <div className="stat-desc">Lorem, ipsum dolor sit amet.</div>
+                <div className="stat-desc">
+                  Particulate matter, 10 micrometers.
+                </div>
               </div>
             </div>
           </div>
