@@ -12,7 +12,7 @@ import useWeatherContext from "../contexts/useWeatherContext";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 const WeatherDisplay = () => {
-  const { currentWeather, forecast, airPollution, loading, error } =
+  const { currentWeather, forecast, airPollution, loading, error, unit } =
     useWeatherContext();
 
   if (loading) {
@@ -39,6 +39,7 @@ const WeatherDisplay = () => {
   const currentTime = new Date().toLocaleTimeString();
 
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+  const temperatureUnit = unit === "metric" ? "°C" : "°F";
 
   return (
     <div className="container mx-auto h-full">
@@ -59,7 +60,10 @@ const WeatherDisplay = () => {
                 </span>
                 , {currentTime}
               </div>
-              <div className="stat-value">{currentWeather.main.temp}°C</div>
+              <div className="stat-value">
+                {currentWeather.main.temp}
+                <sapn>{temperatureUnit}</sapn>
+              </div>
               <div className="stat-desc">
                 Conditions: {currentWeather.weather[0].description}
               </div>
@@ -71,7 +75,8 @@ const WeatherDisplay = () => {
               </div>
               <div className="stat-title">Temperature Feels Like</div>
               <div className="stat-value">
-                {currentWeather.main.feels_like}°C
+                {currentWeather.main.feels_like}
+                <sapn>{temperatureUnit}</sapn>
               </div>
               <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
             </div>
@@ -106,7 +111,8 @@ const WeatherDisplay = () => {
                 <div className="stat">
                   <div className="stat-title">Minimum Temperature</div>
                   <div className="stat-value">
-                    {currentWeather.main.temp_min}°C
+                    {currentWeather.main.temp_min}
+                    <sapn>{temperatureUnit}</sapn>
                   </div>
                   <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
                 </div>
@@ -114,7 +120,8 @@ const WeatherDisplay = () => {
                 <div className="stat">
                   <div className="stat-title">Maximum Temperature</div>
                   <div className="stat-value">
-                    {currentWeather.main.temp_max}°C
+                    {currentWeather.main.temp_max}
+                    <sapn>{temperatureUnit}</sapn>
                   </div>
                   <div className="stat-desc">Lorem ipsum dolor sit amet.</div>
                 </div>

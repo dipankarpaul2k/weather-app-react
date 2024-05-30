@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -16,6 +16,12 @@ export const WeatherProvider = ({ children }) => {
   const BASE_URL = "https://api.openweathermap.org/data/2.5";
   const API_KEY = String(import.meta.env.VITE_OPENWEATHERMAP_API_KEY);
 
+  useEffect(() => {
+    if (currentWeather) {
+      fetchWeatherData(currentWeather.name);
+    }
+  }, [unit]);
+
   const fetchWeatherData = async (city) => {
     if (!city.trim()) {
       return toast.error("Please enter a city name!");
@@ -25,7 +31,7 @@ export const WeatherProvider = ({ children }) => {
     setError(null);
     try {
       const currentWeatherResponse = await axios.get(
-        `${BASE_URL}/weather?q=${city}&appid=${API_KEY}&units=${unit}`
+        `${BASE_URL}/weather?q=${city.trim()}&appid=${API_KEY}&units=${unit}`
       );
       const { lat, lon } = currentWeatherResponse.data.coord;
 
@@ -74,5 +80,5 @@ export const WeatherProvider = ({ children }) => {
 };
 
 WeatherProvider.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.node,
 };
