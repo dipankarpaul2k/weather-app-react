@@ -43,7 +43,7 @@ const WeatherDisplay = () => {
 
   return (
     <div className="container mx-auto h-full">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 sm:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 md:gap-4">
         {/* grid left */}
         <div className="flex flex-col gap-4">
           <div className="stats stats-vertical shadow border w-full grow">
