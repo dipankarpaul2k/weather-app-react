@@ -31,7 +31,7 @@ const FetchWeather = () => {
             placeholder="Search"
             autoComplete="off"
           />
-          <button className="btn join-item rounded-r-full btn-info">
+          <button className="btn join-item rounded-r-full btn-secondary">
             {loading ? (
               <>
                 <span className="loading loading-spinner"></span>{" "}

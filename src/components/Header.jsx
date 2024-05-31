@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { themeChange } from "theme-change";
 import {
   IconTemperatureCelsius as CelsiusIcon,
   IconTemperatureFahrenheit as FahrenheitIcon,
@@ -7,16 +5,12 @@ import {
 import { useHeadroom } from "@mantine/hooks";
 
 import useWeatherContext from "../contexts/useWeatherContext";
+import ThemeDropdown from "./ThemeDropdown";
 
 const Header = () => {
   const { unit, toggleUnit, currentWeather } = useWeatherContext();
   const pinned = useHeadroom({ fixedAt: 120 });
   console.log("pinned: ", pinned);
-
-  useEffect(() => {
-    themeChange(false);
-    // 👆 false parameter is required for react project
-  }, []);
 
   return (
     <header
@@ -58,46 +52,7 @@ const Header = () => {
 
             {/* toggle theme */}
             <li>
-              <details>
-                <summary>Theme</summary>
-                <ul className="p-2 bg-base-100 rounded-t-none">
-                  <li>
-                    <button data-set-theme="light" className="btn btn-sm">
-                      Light
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="dark" className="btn btn-sm">
-                      Dark
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="corporate" className="btn btn-sm">
-                      Corporate
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="black" className="btn btn-sm">
-                      Black
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="forest" className="btn btn-sm">
-                      Forest
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="dracula" className="btn btn-sm">
-                      Dracula
-                    </button>
-                  </li>
-                  <li>
-                    <button data-set-theme="winter" className="btn btn-sm">
-                      Winter
-                    </button>
-                  </li>
-                </ul>
-              </details>
+              <ThemeDropdown />
             </li>
           </ul>
         </div>
