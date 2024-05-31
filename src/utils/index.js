@@ -27,8 +27,8 @@ export function convertToISTDate(isoDateTime) {
   const istTime = new Date(date.getTime() + istOffset);
   const options = { year: "numeric", month: "long", day: "numeric" };
 
-  // Format IST date as DD/MM/YYYY
-  const istDate = istTime.toLocaleDateString("en-US", options);
+  // Format IST date as May 31,2024
+  const istDate = istTime.toLocaleDateString("en-US", options).slice(0, 6);
 
   return `${istDate}`;
 }
