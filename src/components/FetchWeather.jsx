@@ -22,7 +22,7 @@ const FetchWeather = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="mb-4 w-full max-w-[500px]">
+      <form onSubmit={handleSubmit} className="mb-4 w-full sm:max-w-[500px]">
         <div className="join w-full">
           <input
             type="text"

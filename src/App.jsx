@@ -13,7 +13,7 @@ export default function App() {
     <WeatherProvider>
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1 p-3 sm:p-4">
+        <main className="flex-1 p-3 sm:p-4 pt-[85px] sm:pt-[85px]">
           <div className="container mx-auto h-full">
             <FetchWeather />
             <WeatherDisplay />
