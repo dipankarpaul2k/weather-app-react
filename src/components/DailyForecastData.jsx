@@ -2,7 +2,15 @@ import useWeatherContext from "../contexts/useWeatherContext";
 
 const DailyForecastData = () => {
   const { dailyForecast, unit } = useWeatherContext();
+  // console.log("dailyForecast: ", dailyForecast);
+
   const temperatureUnit = unit === "metric" ? "°C" : "°F";
+
+  function formatDateString(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  }
 
   if (!dailyForecast) {
     return null;
@@ -47,7 +55,7 @@ const DailyForecastData = () => {
           {dailyForecast.daily.time.map((date, index) => (
             <div key={index} className="stat">
               <div className="stat-title">
-                {new Date(date).toLocaleDateString()}
+                {formatDateString(date)}
               </div>
               <div className="stat-value">
                 <div className="flex items-center justify-between">

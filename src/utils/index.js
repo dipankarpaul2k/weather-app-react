@@ -1,3 +1,4 @@
+// Convert ISO time to Indian Standard Time
 export function convertToIST(isoDateTime) {
   const date = new Date(isoDateTime);
 
@@ -8,11 +9,13 @@ export function convertToIST(isoDateTime) {
   // Convert UTC time to IST time
   const istTime = new Date(date.getTime() + istOffset);
 
-  // Format IST time in HH:MM:SS format
-  const istTimeString = istTime.toTimeString().split(" ")[0];
+  // Format IST time in HH:MM format
+  const istTimeString = istTime.toTimeString().split(" ")[0].slice(0, 5);
 
   return `${istTimeString}`;
 }
+
+// Convert ISO time to IST date
 export function convertToISTDate(isoDateTime) {
   const date = new Date(isoDateTime);
 
@@ -22,9 +25,10 @@ export function convertToISTDate(isoDateTime) {
 
   // Convert UTC time to IST time
   const istTime = new Date(date.getTime() + istOffset);
+  const options = { year: "numeric", month: "long", day: "numeric" };
 
   // Format IST date as DD/MM/YYYY
-  const istDate = istTime.toLocaleDateString("en-GB");
+  const istDate = istTime.toLocaleDateString("en-US", options);
 
   return `${istDate}`;
 }

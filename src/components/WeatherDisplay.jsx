@@ -34,9 +34,9 @@ const WeatherDisplay = () => {
   }
 
   const { sunrise, sunset } = currentWeather.sys;
-  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString();
-  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString();
-  const currentTime = new Date().toLocaleTimeString();
+  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString("en-US");
+  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString("en-US");
+  const currentTime = new Date().toLocaleTimeString("en-US");
 
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
   const temperatureUnit = unit === "metric" ? "°C" : "°F";
