@@ -63,8 +63,8 @@ const Header = () => {
                     </button>
                   </li>
                   <li>
-                    <button data-set-theme="retro" className="btn btn-sm">
-                      Retro
+                    <button data-set-theme="black" className="btn btn-sm">
+                      Black
                     </button>
                   </li>
                   <li>
@@ -75,6 +75,11 @@ const Header = () => {
                   <li>
                     <button data-set-theme="dracula" className="btn btn-sm">
                       Dracula
+                    </button>
+                  </li>
+                  <li>
+                    <button data-set-theme="winter" className="btn btn-sm">
+                      Winter
                     </button>
                   </li>
                 </ul>
