@@ -5,7 +5,7 @@ import {
   IconWind,
   IconMist,
   IconDroplets,
-  IconCompass,
+  IconArrowRightTail,
 } from "@tabler/icons-react";
 
 import useWeatherContext from "../contexts/useWeatherContext";
@@ -79,7 +79,9 @@ const WeatherDisplay = () => {
                 {currentWeather.main.feels_like}
                 <span>{temperatureUnit}</span>
               </div>
-              <div className="stat-desc">Perceived temperature, factoring wind, humidity.</div>
+              <div className="stat-desc">
+                Perceived temperature, factoring wind, humidity.
+              </div>
             </div>
           </div>
 
@@ -202,7 +204,10 @@ const WeatherDisplay = () => {
 
               <div className="stat">
                 <div className="stat-figure text-secondary">
-                  <IconCompass stroke={2} />
+                  <IconArrowRightTail
+                    stroke={2}
+                    style={{ rotate: `${currentWeather.wind.deg * 1 + 90}deg` }}
+                  />
                 </div>
                 <div className="stat-title">Wind Direction</div>
                 <div className="stat-value">{currentWeather.wind.deg}°</div>
@@ -227,8 +232,7 @@ const WeatherDisplay = () => {
                   {airPollution.list[0].main.aqi}
                 </div>
                 <div className="stat-desc">
-                  Condition: {AQI_DES[airPollution.list[0].main.aqi - 1]},
-                  pollution level
+                  Pollution level: {AQI_DES[airPollution.list[0].main.aqi - 1]}
                 </div>
               </div>
 
