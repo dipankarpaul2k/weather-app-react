@@ -24,7 +24,7 @@ const Header = () => {
           </h1>
         </div>
         <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 items-center">
             {/* toggle unit */}
             {currentWeather && (
               <li>
