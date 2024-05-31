@@ -8,7 +8,10 @@ const Footer = () => {
       </aside>
       <nav>
         <div className="grid grid-flow-col gap-4">
-          <a href="https://github.com/dipankarpaul2k" target="_blank">
+          <a
+            href="https://github.com/dipankarpaul2k/weather-app-react"
+            target="_blank"
+          >
             <IconBrandGithub stroke={2} />
           </a>
           <a
