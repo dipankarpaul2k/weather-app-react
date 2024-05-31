@@ -48,7 +48,6 @@ const HourlyForecastData = () => {
               <th>Feels Like</th>
               <th>Humidity</th>
               <th>Visibility</th>
-              <th>Precipitation</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +67,6 @@ const HourlyForecastData = () => {
                   </td>
                   <td>{hourlyForecast.hourly.relative_humidity_2m[index]}%</td>
                   <td>{hourlyForecast.hourly.visibility[index] / 1000} Km</td>
-                  <td>{hourlyForecast.hourly.precipitation[index]} mm</td>
                 </tr>
               ))}
           </tbody>

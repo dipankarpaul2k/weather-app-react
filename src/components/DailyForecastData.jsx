@@ -8,7 +8,7 @@ const DailyForecastData = () => {
 
   function formatDateString(dateString) {
     const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
   }
 
@@ -33,7 +33,7 @@ const DailyForecastData = () => {
           <tbody>
             {dailyForecast.daily.time.map((date, index) => (
               <tr key={index}>
-                <td>{new Date(date).toLocaleDateString()}</td>
+                <td>{formatDateString(date)}</td>
                 <td>
                   {dailyForecast.daily.temperature_2m_max[index]}
                   {temperatureUnit}

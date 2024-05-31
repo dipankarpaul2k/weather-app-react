@@ -34,8 +34,9 @@ const WeatherDisplay = () => {
   }
 
   const { sunrise, sunset } = currentWeather.sys;
-  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString("en-US");
-  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString("en-US");
+  const options = { hour: "numeric", minute: "numeric" };
+  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString("en-US", options);
+  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString("en-US", options);
   const currentTime = new Date().toLocaleTimeString("en-US");
 
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
@@ -46,6 +47,7 @@ const WeatherDisplay = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 md:gap-4">
         {/* grid left */}
         <div className="flex flex-col gap-4">
+          {/* current temp */}
           <div className="stats stats-vertical shadow border w-full grow">
             <div className="stat">
               <div className="stat-figure text-secondary">
@@ -85,6 +87,7 @@ const WeatherDisplay = () => {
             </div>
           </div>
 
+          {/* sun rise and sun set */}
           <div className="stats stats-vertical shadow border w-full grow">
             <div className="stat">
               <div className="stat-figure text-secondary">
@@ -206,7 +209,7 @@ const WeatherDisplay = () => {
                 <div className="stat-figure text-secondary">
                   <IconArrowRightTail
                     stroke={2}
-                    style={{ rotate: `${currentWeather.wind.deg * 1 + 90}deg` }}
+                    style={{ rotate: `${currentWeather.wind.deg}deg` }}
                   />
                 </div>
                 <div className="stat-title">Wind Direction</div>

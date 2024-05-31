@@ -8,9 +8,11 @@ export function convertToIST(isoDateTime) {
 
   // Convert UTC time to IST time
   const istTime = new Date(date.getTime() + istOffset);
+  const options = { hour: "numeric", minute: "numeric" };
+
 
   // Format IST time in HH:MM format
-  const istTimeString = istTime.toTimeString().split(" ")[0].slice(0, 5);
+  const istTimeString = istTime.toLocaleTimeString("en-US", options);
 
   return `${istTimeString}`;
 }
@@ -25,10 +27,10 @@ export function convertToISTDate(isoDateTime) {
 
   // Convert UTC time to IST time
   const istTime = new Date(date.getTime() + istOffset);
-  const options = { year: "numeric", month: "long", day: "numeric" };
+  const options = { month: "long", day: "numeric" };
 
   // Format IST date as May 31,2024
-  const istDate = istTime.toLocaleDateString("en-US", options).slice(0, 6);
+  const istDate = istTime.toLocaleDateString("en-US", options);
 
   return `${istDate}`;
 }
