@@ -1,11 +1,11 @@
 const LoadingSkeleton = () => {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 sm:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-x-0 md:gap-4">
         {/* grid left */}
         <div className="flex flex-col gap-4">
-          <div className="skeleton h-32 grow"></div>
-          <div className="skeleton h-32 grow"></div>
+          <div className="skeleton min-h-[250px] grow"></div>
+          <div className="skeleton min-h-[250px] grow"></div>
         </div>
         {/* grid right */}
         <div className="col-span-2">
