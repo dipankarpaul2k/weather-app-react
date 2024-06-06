@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect } from "react";
+import { useToggle } from "@mantine/hooks";
 import PropTypes from "prop-types";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useToggle } from "@mantine/hooks";
 
+// create weather context
 export const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
@@ -13,7 +14,6 @@ export const WeatherProvider = ({ children }) => {
   const [airPollution, setAirPollution] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [unit, toggleUnit] = useToggle(["metric", "imperial"]);
 
   const BASE_URL = "https://api.openweathermap.org/data/2.5";
@@ -21,7 +21,7 @@ export const WeatherProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentWeather) {
-      fetchWeatherData(currentWeather.name);
+      fetchWeatherDataByCity(currentWeather.name);
     }
   }, [unit]);
 
@@ -78,6 +78,9 @@ export const WeatherProvider = ({ children }) => {
       async (position) => {
         try {
           const { latitude, longitude } = position.coords;
+          console.log(
+            "geolocation api works better with devices that has GPS support like mobile and tablet."
+          );
 
           const currentWeatherResponse = await axios.get(
             `${BASE_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=${unit}`
