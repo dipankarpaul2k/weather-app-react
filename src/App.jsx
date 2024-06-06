@@ -7,6 +7,7 @@ import FetchWeather from "./components/FetchWeather";
 import WeatherDisplay from "./components/WeatherDisplay";
 import DailyForecastData from "./components/DailyForecastData";
 import HourlyForecastData from "./components/HourlyForecastData";
+import MapComponent from "./components/MapComponent";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <WeatherDisplay />
             <DailyForecastData />
             <HourlyForecastData />
+            <MapComponent />
           </div>
         </main>
         <Footer />

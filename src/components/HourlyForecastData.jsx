@@ -4,10 +4,8 @@ import { convertToIST, convertToISTDate } from "../utils";
 
 const HourlyForecastData = () => {
   const { hourlyForecast, unit } = useWeatherContext();
-  // console.log("hourlyForecast: ", hourlyForecast);
 
   const temperatureUnit = unit === "metric" ? "°C" : "°F";
-
   const [hourRange, setHourRange] = useState(7);
 
   if (!hourlyForecast) {

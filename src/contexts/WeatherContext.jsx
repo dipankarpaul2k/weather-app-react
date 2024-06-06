@@ -15,6 +15,7 @@ export const WeatherProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [unit, toggleUnit] = useToggle(["metric", "imperial"]);
+  const [cityDetails, setCityDetails] = useState(null);
 
   const BASE_URL = "https://api.openweathermap.org/data/2.5";
   const API_KEY = String(import.meta.env.VITE_OPENWEATHERMAP_API_KEY);
@@ -32,7 +33,12 @@ export const WeatherProvider = ({ children }) => {
 
     setLoading(true);
     setError(null);
+
     try {
+      const cityDetailsResponse = await axios.get(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${city.trim()}&count=1&language=en&format=json`
+      );
+
       const currentWeatherResponse = await axios.get(
         `${BASE_URL}/weather?q=${city.trim()}&appid=${API_KEY}&units=${unit}`
       );
@@ -54,6 +60,7 @@ export const WeatherProvider = ({ children }) => {
         `${BASE_URL}/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
       );
 
+      setCityDetails(cityDetailsResponse.data.results[0]);
       setCurrentWeather(currentWeatherResponse.data);
       setHourlyForecast(hourlyForecastResponse.data);
       setDailyForecast(dailyForecastResponse.data);
@@ -123,6 +130,7 @@ export const WeatherProvider = ({ children }) => {
   };
 
   const value = {
+    cityDetails,
     currentWeather,
     hourlyForecast,
     dailyForecast,
@@ -130,8 +138,8 @@ export const WeatherProvider = ({ children }) => {
     unit,
     loading,
     error,
-    fetchWeatherDataByCity,
     toggleUnit,
+    fetchWeatherDataByCity,
     fetchWeatherForCurrentLocation,
   };
 

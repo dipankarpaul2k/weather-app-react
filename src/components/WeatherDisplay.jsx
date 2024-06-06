@@ -64,7 +64,7 @@ const WeatherDisplay = () => {
     "en-US",
     options
   );
-  const currentTime = new Date().toLocaleTimeString("en-US");
+  const currentTime = new Date().toLocaleTimeString("en-US", options);
 
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
   const temperatureUnit = unit === "metric" ? "°C" : "°F";
