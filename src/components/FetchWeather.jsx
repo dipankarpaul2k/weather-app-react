@@ -3,7 +3,7 @@ import { IconSearch } from "@tabler/icons-react";
 import useWeatherContext from "../contexts/useWeatherContext";
 
 const FetchWeather = () => {
-  const { fetchWeatherData, loading } = useWeatherContext();
+  const { fetchWeatherDataByCity, loading } = useWeatherContext();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,7 +12,7 @@ const FetchWeather = () => {
     const formData = new FormData(target);
     const city = formData.get("city");
 
-    fetchWeatherData(city);
+    fetchWeatherDataByCity(city);
     target.reset();
 
     if (document.activeElement) {
@@ -22,7 +22,7 @@ const FetchWeather = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="mb-4 w-full sm:max-w-[500px]">
+      <form onSubmit={handleSubmit} className="mb-4 w-full md:max-w-[500px]">
         <div className="join w-full">
           <input
             type="text"
@@ -31,11 +31,14 @@ const FetchWeather = () => {
             placeholder="Search"
             autoComplete="off"
           />
-          <button className="btn join-item rounded-r-full btn-secondary">
+          <button
+            className="btn join-item rounded-r-full btn-secondary"
+            disabled={loading}
+          >
             {loading ? (
               <>
                 <span className="loading loading-spinner"></span>{" "}
-                <span className="max-sm:hidden">Loading</span>
+                <span className="max-sm:hidden">Fetching</span>
               </>
             ) : (
               <>

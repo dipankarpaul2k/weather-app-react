@@ -12,8 +12,15 @@ import useWeatherContext from "../contexts/useWeatherContext";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 const WeatherDisplay = () => {
-  const { currentWeather, dailyForecast, airPollution, loading, error, unit } =
-    useWeatherContext();
+  const {
+    currentWeather,
+    dailyForecast,
+    airPollution,
+    loading,
+    error,
+    unit,
+    fetchWeatherForCurrentLocation,
+  } = useWeatherContext();
 
   if (loading) {
     return <LoadingSkeleton />;
@@ -29,14 +36,34 @@ const WeatherDisplay = () => {
         <p className="text-center">
           Enter a city to get the weather information.
         </p>
+        <div className="text-center">
+          <p className="my-4">
+            Click to get weather information for current location.
+          </p>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={fetchWeatherForCurrentLocation}
+            disabled={loading}
+          >
+            {loading
+              ? "Fetching Weather..."
+              : "Get Weather for Current Location"}
+          </button>
+        </div>
       </>
     );
   }
 
   const { sunrise, sunset } = currentWeather.sys;
   const options = { hour: "numeric", minute: "numeric" };
-  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString("en-US", options);
-  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString("en-US", options);
+  const sunriseTime = new Date(sunrise * 1000).toLocaleTimeString(
+    "en-US",
+    options
+  );
+  const sunsetTime = new Date(sunset * 1000).toLocaleTimeString(
+    "en-US",
+    options
+  );
   const currentTime = new Date().toLocaleTimeString("en-US");
 
   const AQI_DES = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
