@@ -10,7 +10,6 @@ import ThemeDropdown from "./ThemeDropdown";
 const Header = () => {
   const { unit, toggleUnit, currentWeather } = useWeatherContext();
   const pinned = useHeadroom({ fixedAt: 120 });
-  console.log("pinned: ", pinned);
 
   return (
     <header
