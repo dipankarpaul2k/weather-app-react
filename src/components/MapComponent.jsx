@@ -31,6 +31,7 @@ export default function MapComponent() {
   return (
     <div className="p-4">
       <div className="grid grid-cols-1 gap-4">
+        {/* location info */}
         <div className="">
           <div className="stats stats-horizontal shadow w-full">
             <div className="stat">
@@ -80,6 +81,8 @@ export default function MapComponent() {
             </div>
           </div>
         </div>
+
+        {/* map grid */}
         <div
           id="map"
           className="col-span-2 min-h-[500px] w-full rounded-xl overflow-hidden"
