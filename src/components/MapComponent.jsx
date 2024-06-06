@@ -100,7 +100,25 @@ export default function MapComponent() {
               />
               <Marker position={[lat, lon]}>
                 <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
+                  <div>
+                    <p>
+                      <strong>Location: </strong>
+                      {cityDetails.name}, {cityDetails.admin1},{" "}
+                      {cityDetails.country}
+                    </p>
+                    <p>
+                      <strong>Time Zone: </strong>
+                      {cityDetails.timezone}
+                    </p>
+                    <p>
+                      <strong>Latitude: </strong>
+                      {cityDetails.latitude}
+                    </p>
+                    <p>
+                      <strong>Longitude: </strong>
+                      {cityDetails.longitude}
+                    </p>
+                  </div>
                 </Popup>
               </Marker>
             </MapContainer>
