@@ -1,13 +1,17 @@
 import { createContext, useState, useEffect } from "react";
 import { useToggle } from "@mantine/hooks";
 import PropTypes from "prop-types";
-import axios from "axios";
 import toast from "react-hot-toast";
+
+// import fetch functions
+import fetchWeatherData from "./fetchWeatherData";
+import fetchWeatherDataByCoords from "./fetchWeatherDataByCoords";
 
 // create weather context
 export const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
+  const [cityDetails, setCityDetails] = useState(null);
   const [currentWeather, setCurrentWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState(null);
   const [dailyForecast, setDailyForecast] = useState(null);
@@ -15,7 +19,6 @@ export const WeatherProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [unit, toggleUnit] = useToggle(["metric", "imperial"]);
-  const [cityDetails, setCityDetails] = useState(null);
 
   const BASE_URL = "https://api.openweathermap.org/data/2.5";
   const API_KEY = String(import.meta.env.VITE_OPENWEATHERMAP_API_KEY);
@@ -35,39 +38,18 @@ export const WeatherProvider = ({ children }) => {
     setError(null);
 
     try {
-      const cityDetailsResponse = await axios.get(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${city.trim()}&count=1&language=en&format=json`
-      );
+      const weatherData = await fetchWeatherData(city, unit, API_KEY, BASE_URL);
 
-      const currentWeatherResponse = await axios.get(
-        `${BASE_URL}/weather?q=${city.trim()}&appid=${API_KEY}&units=${unit}`
-      );
-      const { lat, lon } = currentWeatherResponse.data.coord;
-
-      const hourlyForecastResponse = await axios.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,visibility&timezone=Asia%2FKolkata&temperature_unit=${
-          unit === "metric" ? "celsius" : "fahrenheit"
-        }`
-      );
-
-      const dailyForecastResponse = await axios.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max&timezone=Asia%2FKolkata&temperature_unit=${
-          unit === "metric" ? "celsius" : "fahrenheit"
-        }`
-      );
-
-      const airPollutionResponse = await axios.get(
-        `${BASE_URL}/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-      );
-
-      setCityDetails(cityDetailsResponse.data.results[0]);
-      setCurrentWeather(currentWeatherResponse.data);
-      setHourlyForecast(hourlyForecastResponse.data);
-      setDailyForecast(dailyForecastResponse.data);
-      setAirPollution(airPollutionResponse.data);
-    } catch (err) {
-      setError("City not found");
-      toast.error("City not found!");
+      setCityDetails(weatherData.cityDetails);
+      setCurrentWeather(weatherData.currentWeather);
+      setAirPollution(weatherData.airPollution);
+      setHourlyForecast(weatherData.hourlyForecast);
+      setDailyForecast(weatherData.dailyForecast);
+    } catch (error) {
+      // setError("City not found");
+      // toast.error("City not found!");
+      setError(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -86,33 +68,22 @@ export const WeatherProvider = ({ children }) => {
         try {
           const { latitude, longitude } = position.coords;
           console.log(
-            "geolocation api works better with devices that has GPS support like mobile and tablet."
+            "Geolocation API works better with devices that have GPS support like mobile and tablet."
           );
 
-          const currentWeatherResponse = await axios.get(
-            `${BASE_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=${unit}`
+          const weatherData = await fetchWeatherDataByCoords(
+            latitude,
+            longitude,
+            unit,
+            API_KEY,
+            BASE_URL
           );
 
-          const hourlyForecastResponse = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,visibility&timezone=Asia%2FKolkata&temperature_unit=${
-              unit === "metric" ? "celsius" : "fahrenheit"
-            }`
-          );
-
-          const dailyForecastResponse = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,uv_index_max&timezone=Asia%2FKolkata&temperature_unit=${
-              unit === "metric" ? "celsius" : "fahrenheit"
-            }`
-          );
-
-          const airPollutionResponse = await axios.get(
-            `${BASE_URL}/air_pollution?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
-          );
-
-          setCurrentWeather(currentWeatherResponse.data);
-          setHourlyForecast(hourlyForecastResponse.data);
-          setDailyForecast(dailyForecastResponse.data);
-          setAirPollution(airPollutionResponse.data);
+          setCityDetails(weatherData.cityDetails);
+          setCurrentWeather(weatherData.currentWeather);
+          setHourlyForecast(weatherData.hourlyForecast);
+          setDailyForecast(weatherData.dailyForecast);
+          setAirPollution(weatherData.airPollution);
         } catch (err) {
           setError("Unable to retrieve weather data for current location.");
           toast.error("Unable to retrieve weather data for current location.");
