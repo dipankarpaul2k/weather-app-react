@@ -7,12 +7,17 @@ A simple and user-friendly weather app built with React.js, providing current we
 - **Current Weather Data**: Displays the current weather conditions for a searched city.
 - **Hourly Forecast**: Provides weather data for the next 24 hours.
 - **Daily Forecast**: Shows weather data for the upcoming days.
+- **Current Location Weather**: Shows weather data for the current location.
+- **Location Details**: Shows the details of the current location and a map.
 
 ## Technologies Used
 
 - **React.js**: A JavaScript library for building user interfaces.
 - **OpenWeatherMap API**: Provides current weather data and forecasts.
 - **Open-Meteo API**: Offers precise weather forecasts.
+- **Tailwind CSS**: A utility-first CSS framework.
+- **DaisyUI**: The popular component library for Tailwind CSS.
+- **Axios**: Promise based HTTP client library.
 
 ## Usage
 
