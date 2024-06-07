@@ -89,10 +89,12 @@ export default function MapComponent() {
         >
           {lat && lon && (
             <MapContainer
+              className="h-full w-full"
               center={[lat, lon]}
               zoom={10}
-              scrollWheelZoom={true}
-              className="h-full w-full"
+              scrollWheelZoom={true} // Enable scroll wheel zoom
+              touchZoom={false} // Disable touch zooming
+              dragging={false} // Disable map dragging
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
