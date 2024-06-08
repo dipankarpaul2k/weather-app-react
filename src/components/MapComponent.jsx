@@ -97,7 +97,7 @@ export default function MapComponent() {
         </div>
 
         {/* map */}
-        <div className="w-full min-h-[400px] px-4 sm:px-0">
+        <div className="w-full min-h-[400px]">
           {lat && lon && (
             <div className="h-full w-full rounded-xl overflow-hidden">
               <MapContainer
