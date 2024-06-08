@@ -27,8 +27,8 @@ const FetchWeather = () => {
           <input
             type="text"
             name="city"
-            className="input input-bordered join-item rounded-l-full w-full"
-            placeholder="Search"
+            className="input input-bordered join-item rounded-l-full w-full focus:outline-none"
+            placeholder="Search Any City"
             autoComplete="off"
           />
           <button
