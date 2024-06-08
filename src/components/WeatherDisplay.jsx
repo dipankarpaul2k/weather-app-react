@@ -34,14 +34,15 @@ const WeatherDisplay = () => {
     return (
       <>
         <p className="text-center">
-          Enter a city to get the weather information.
+          Enter a city or click to get the weather information.
         </p>
         <div className="text-center">
-          <p className="my-4">
-            Click to get weather information for current location.
+          <p>
+            Geolocation API works better with devices that have GPS support like
+            mobile and tablet.
           </p>
           <button
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm mt-4"
             onClick={fetchWeatherForCurrentLocation}
             disabled={loading}
           >
