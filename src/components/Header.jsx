@@ -27,7 +27,7 @@ const Header = () => {
       <nav className="navbar bg-base-100 px-3 sm:px-4">
         <div className="flex-1">
           <h1 className="text-3xl max-sm:text-xl max-md:text-2xl font-bold">
-            Weather Dashboard
+            WeatherWise
           </h1>
         </div>
         <div className="flex-none">
